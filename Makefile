@@ -1,4 +1,4 @@
-start: network node_exporter grafana prometheus
+start: network node_exporter node grafana prometheus
 
 network:
 	@docker network remove prometheus-workshop
@@ -15,3 +15,10 @@ node_exporter:
 grafana:
 	@docker kill grafana-1 || true
 	@docker run -d --name grafana-1 --rm -p 3000:3000 --network=prometheus-workshop grafana/grafana
+
+node:
+	@docker kill app-1 || true
+	@docker image rm app-1 || true
+	@docker rm app-1 || true
+	@docker build --tag app-1 .
+	@docker run -d --name app-1 --rm -p 3131:3131 --network=prometheus-workshop app-1
