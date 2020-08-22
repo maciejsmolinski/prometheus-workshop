@@ -1,0 +1,35 @@
+version: "3.8"
+services:
+  node_exporter:
+    image: bitnami/node-exporter:latest
+    ports:
+      - 9100:9100
+    networks:
+      - prometheus-workshop
+  app:
+    build: .
+    ports:
+      - 3131:3131
+    networks:
+      - prometheus-workshop
+  prometheus:
+    image: prom/prometheus
+    depends_on:
+      - node_exporter
+      - app
+    ports:
+      - 9090:9090
+    volumes:
+      - ./etc/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - prometheus-workshop
+  grafana:
+    image: grafana/grafana
+    ports:
+      - 3000:3000
+    networks:
+      - prometheus-workshop
+
+
+networks:
+  prometheus-workshop:
