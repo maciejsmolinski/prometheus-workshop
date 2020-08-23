@@ -10,6 +10,8 @@ services:
     build: .
     ports:
       - 3131:3131
+    volumes:
+      - ./metrics.js:/app/metrics.js
     networks:
       - prometheus-workshop
   prometheus:
