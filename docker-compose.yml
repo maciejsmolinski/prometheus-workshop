@@ -1,12 +1,14 @@
 version: "3.8"
 services:
-  node_exporter:
-    image: bitnami/node-exporter:latest
-    ports:
-      - 9100:9100
-    networks:
-      - prometheus-workshop
-  app:
+
+  # node_exporter:
+  #   image: bitnami/node-exporter:latest
+  #   ports:
+  #     - 9100:9100
+  #   networks:
+  #     - prometheus-workshop
+
+  first_app:
     build: .
     ports:
       - 3131:3131
@@ -14,17 +16,28 @@ services:
       - ./metrics.js:/app/metrics.js
     networks:
       - prometheus-workshop
+
+  second_app:
+    build: .
+    ports:
+      - 3232:3131
+    volumes:
+      - ./metrics.js:/app/metrics.js
+    networks:
+      - prometheus-workshop
+
   prometheus:
     image: prom/prometheus
     depends_on:
-      - node_exporter
-      - app
+      - first_app
+      - second_app
     ports:
       - 9090:9090
     volumes:
       - ./etc/prometheus.yml:/etc/prometheus/prometheus.yml
     networks:
       - prometheus-workshop
+
   grafana:
     image: grafana/grafana
     ports:
