@@ -7,6 +7,6 @@ scrape_configs:
   static_configs:
   - targets: ['first_app:3131', 'second_app:3131']
 
-# - job_name: node_exporter
+# - job_name: prometheus
 #   static_configs:
-#   - targets: ['node_exporter:9100']
+#   - targets: ['localhost:9090']

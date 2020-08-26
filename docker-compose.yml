@@ -1,11 +1,6 @@
 version: "3.8"
 services:
 
-  # node_exporter:
-  #   image: bitnami/node-exporter:latest
-  #   ports:
-  #     - 9100:9100
-
   first_app:
     build: .
     ports:
