@@ -29,3 +29,8 @@ services:
     image: grafana/grafana
     ports:
       - 3000:3000
+
+  # node_exporter:
+  #   image: bitnami/node-exporter
+  #   ports:
+  #     - 9100:9100
